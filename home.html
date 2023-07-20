@@ -1,0 +1,379 @@
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+
+{% extends "index.html" %}
+{% block content %}
+<div class="content-section1">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-3">
+          <h5 style="color:white;">Search Weather</h5>
+        </legend>
+        {{ form.city_name.label(class="form-control-label") }}
+        {% if form.city_name.errors %}
+        {{ form.city_name(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.city_name.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ form.city_name(class="form-control form-control-lg") }}
+        {% endif %}
+      </fieldset>
+      {{ form.search_submit(class="btn btn-outline-info") }}
+    </form>
+  </div>
+
+<!--To Display Current Temprature-->
+
+<div class="main-container">
+    <div class="card">
+    City : {{ city[0] }} <br>
+    Address : {{ city[1] }} <br>
+    Timezone : {{ city[2] }} <br>
+    Timezone Offset : {{ city[3] }} <br>
+<br>
+      <div class="img1">
+        <img src="static/sun-img.png">
+          <h1 style="color:black">{{ curr_data['temp'] }}°C </h1>
+      </div>
+
+      <div class="table">
+
+          <div class="weather">
+          <div>Temp Max</div>
+          <div>{{ temp_min_max['temp_max'] }} °C</div>
+        </div>
+
+          <div class="weather">
+          <div>Temp Min</div>
+          <div>{{ temp_min_max['temp_min'] }} °C</div>
+        </div>
+
+        <div class="weather">
+          <div>Feels Like</div>
+          <div>{{ curr_data['feels_like'] }} °C</div>
+        </div>
+
+        <div class="weather">
+          <div>Humidity</div>
+          <div>{{ curr_data['humidity'] }} %</div>
+        </div>
+        <div class="weather">
+          <div style="text-align: left;">Sun Rise</div>
+          <div>{{ curr_data['sun_rise'] }}</div>
+        </div>
+
+        <div class="weather">
+          <div style="text-align: left;">Sun Set</div>
+          <div>{{ curr_data['sun_set'] }}</div>
+        </div>
+        <div class="weather">
+          <div style="text-align: left;" >Wind_Speed</div>
+          <div> {{ curr_data['wind_speed'] }} kph</div>
+        </div>
+
+        <div class="weather">
+          <div>Visibility</div>
+          <div>{{ curr_data['visibility'] }} km</div>
+        </div>
+
+        <div class="weather">
+          <div> Wind Dir</div>
+          <div>{{ curr_data['wind_dir'] }} kph</div>
+        </div>
+
+        <div class="weather">
+          <div>Pressure</div>
+          <div>{{ curr_data['pressure'] }}mb</div>
+        </div>
+
+          <div class="weather">
+          <div>Conditions</div>
+          <div>{{ curr_data['conditions'] }}</div>
+        </div>
+
+
+
+          <div class="weather">
+          <div>Snow</div>
+          <div>{{ curr_data['snow'] }} cm</div>
+        </div>
+
+          <div class="weather">
+          <div>Snow_Depth</div>
+          <div> {{ curr_data['snow_depth'] }} cm</div>
+        </div>
+
+          <div class="weather">
+          <div>Wind_Gust</div>
+          <div>{{ curr_data['wind_gust'] }} km/h</div>
+        </div>
+
+          <div class="weather">
+          <div>Cloud_Cover</div>
+          <div> {{curr_data ['cloud_cover'] }}</div>
+        </div>
+
+          <div class="weather">
+          <div>Precip</div>
+          <div> {{curr_data ['precip'] }} mm</div>
+        </div>
+
+          <div class="weather">
+          <div>Solar Radiation</div>
+          <div>{{ curr_data['solar_radiation'] }} W/m²</div>
+        </div>
+
+          <div class="weather">
+          <div>Solar Energy</div>
+          <div>{{ curr_data['solar_energy'] }} kW/m²</div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+
+
+<div class="empty">
+
+</div>
+<div class="graph-section chart" id="chart" >
+    <script>
+        var graphs = {{graph | safe}}
+        Plotly.plot('chart',graphs,{})
+    </script>
+</div>
+<div class="empty">
+
+</div>
+
+<!--To Display Past Temprature-->
+
+{% for day in  past_data  %}
+    <div class="main-container">
+    <div class="card">
+<h3 style="color:black" text-align="center">Past Weather</h3>
+<h5>Day : {{ day['day_id'][0:10]  }}</h5>
+      <div class="img1">
+        <img src="static/cloudy-day.png">
+          <h1 style="color:black">{{ day['temp'] }}°C </h1>
+      </div>
+
+      <div class="table">
+
+        <div class="weather">
+          <div>Temp_Max</div>
+          <div>{{ day['temp_max'] }} °C</div>
+        </div>
+
+          <div class="weather">
+          <div>Temp_Min</div>
+          <div>{{ day['temp_min'] }} °C</div>
+        </div>
+
+        <div class="weather">
+          <div>Feels Like</div>
+          <div>{{ day['feels_like'] }} °C</div>
+        </div>
+
+        <div class="weather">
+          <div>Humidity</div>
+          <div>{{ day['humidity'] }} %</div>
+        </div>
+        <div class="weather">
+          <div style="text-align: left;">Sun_Rise</div>
+          <div>{{ day['sun_rise'] }}</div>
+        </div>
+
+        <div class="weather">
+          <div style="text-align: left;">Sun_Set</div>
+          <div>{{ day['sun_set'] }}</div>
+        </div>
+        <div class="weather">
+          <div style="text-align: left;" >Wind_Speed</div>
+          <div> {{ day['wind_speed'] }} kph</div>
+        </div>
+
+        <div class="weather">
+          <div>visibility</div>
+          <div>{{ day['visibility'] }} km</div>
+        </div>
+
+        <div class="weather">
+          <div> Wind Dir</div>
+          <div>{{ day['wind_dir'] }} kph</div>
+        </div>
+
+        <div class="weather">
+          <div>Pressure</div>
+          <div>{{ day['pressure'] }}mb</div>
+        </div>
+
+          <div class="weather">
+          <div>Conditions</div>
+          <div>{{ day['conditions'] }}</div>
+        </div>
+
+          <div class="weather">
+          <div>Snow</div>
+          <div>{{ day['snow'] }} cm</div>
+        </div>
+
+          <div class="weather">
+          <div>Snow_Depth</div>
+          <div> {{ day['snow_depth'] }} cm</div>
+        </div>
+
+          <div class="weather">
+          <div>Wind_Gust</div>
+          <div>{{ day['wind_gust'] }} km/h</div>
+        </div>
+
+          <div class="weather">
+          <div>Cloud_Cover</div>
+          <div> {{day ['cloud_cover'] }}</div>
+        </div>
+
+          <div class="weather">
+          <div>Precip</div>
+          <div> {{day ['precip'] }} mm</div>
+        </div>
+
+          <div class="weather">
+          <div>Solar_Radiation</div>
+          <div>{{ day['solar_radiation'] }} W/m²</div>
+        </div>
+
+          <div class="weather">
+          <div>Solar_Energy</div>
+          <div>{{ day['solar_energy'] }} kW/m²</div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+{% endfor %}
+
+<!--To Display Future Temprature-->
+
+{% for day in  future_data  %}
+<div class="main-container">
+    <div class="card">
+<h3 style="color:black" text-align="center">Future Weather</h3>
+<h5>Day : {{ day['day_id'][0:10]  }}</h5>
+      <div class="img1">
+        <img src="static/morning.png">
+          <h1 style="color:black">{{ day['temp'] }}°C </h1>
+      </div>
+
+      <div class="table">
+
+        <div class="weather">
+          <div>Temp_Max</div>
+          <div>{{ day['temp_max'] }} °C</div>
+        </div>
+
+          <div class="weather">
+          <div>Temp_Min</div>
+          <div>{{ day['temp_min'] }} °C</div>
+        </div>
+
+        <div class="weather">
+          <div>Feels Like</div>
+          <div>{{ day['feels_like'] }} °C</div>
+        </div>
+
+        <div class="weather">
+          <div>Humidity</div>
+          <div>{{ day['humidity'] }} %</div>
+        </div>
+        <div class="weather">
+          <div style="text-align: left;">Sun_Rise</div>
+          <div>{{ day['sun_rise'] }}</div>
+        </div>
+
+        <div class="weather">
+          <div style="text-align: left;">Sun_Set</div>
+          <div>{{ day['sun_set'] }}</div>
+        </div>
+        <div class="weather">
+          <div style="text-align: left;" >Wind_Speed</div>
+          <div> {{ day['wind_speed'] }} kph</div>
+        </div>
+
+        <div class="weather">
+          <div>visibility</div>
+          <div>{{ day['visibility'] }} km</div>
+        </div>
+
+        <div class="weather">
+          <div> Wind Dir</div>
+          <div>{{ day['wind_dir'] }} kph</div>
+        </div>
+
+        <div class="weather">
+          <div>Pressure</div>
+          <div>{{ day['pressure'] }}mb</div>
+        </div>
+
+          <div class="weather">
+          <div>Conditions</div>
+          <div>{{ day['conditions'] }}</div>
+        </div>
+
+          <div class="weather">
+          <div>Snow</div>
+          <div>{{ day['snow'] }} cm</div>
+        </div>
+
+          <div class="weather">
+          <div>Snow_Depth</div>
+          <div> {{ day['snow_depth'] }} cm</div>
+        </div>
+
+          <div class="weather">
+          <div>Wind_Gust</div>
+          <div>{{ day['wind_gust'] }} km/h</div>
+        </div>
+
+          <div class="weather">
+          <div>Cloud_Cover</div>
+          <div> {{day ['cloud_cover'] }}</div>
+        </div>
+
+          <div class="weather">
+          <div>Precip</div>
+          <div> {{day ['precip'] }} mm</div>
+        </div>
+
+          <div class="weather">
+          <div>Solar_Radiation</div>
+          <div>{{ day['solar_radiation'] }} W/m²</div>
+        </div>
+
+          <div class="weather">
+          <div>Solar_Energy</div>
+          <div>{{ day['solar_energy'] }} kW/m²</div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+        {% endfor %}
+<div class="content-section">
+  <h3 style="color:red">Best Time To Visit</h3>
+	{{ bst_time }}
+</div>
+
+<div class="content-section">
+<form method="POST" action="">
+        <div class="border-bottom mb-3" >Do you want to save this for future evaluation ?</div>
+        {{form.save_submit(class="btn btn-outline-info") }}
+</form>
+</div>
+{% endblock content %}

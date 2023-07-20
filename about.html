@@ -1,0 +1,35 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename ='about.css')}}">
+
+{% extends "index.html" %}
+{% block content %}
+   <div class="news-container">
+
+       <h1 class="news-head" style="">Latest News</h1>
+      <div class="news-item">
+        <img src="static/Pune-winter.jpg" alt="News Image">
+        <div class="news-info">
+          <h3 style="color:red;">Maharashtra Weather </h3>
+          <p>The India Meteorological Department on Wednesday said after brief relief, a cold wave is likely to hit Maharashtra after January 29 and it will continue in the state till February 2. Giving details, Dr Anupam Kashyapi, head of weather forecast department at IMD Pune, said a significant fall in temperature will be recorded from January 30 in some areas.</p>
+          <a href="#">Read more</a>
+        </div>
+      </div>
+      <div class="news-item">
+        <img src="static/delhi-weather.webp" alt="News Image">
+        <div class="news-info">
+          <h3 style="color:red;">Delhi Air Quality 'Moderate', Likely To Deteriorate In Next 2 Days</h3>
+          <p>After a marginal respite, the air quality in the national capital today deteriorated and over the next few days it is expected to further worsen, according to the System of Air Quality and Weather Forecasting and Research (SAFAR).</p>
+          <a href="#">Read more</a>
+        </div>
+      </div>
+        <div class="news-item">
+        <img src="static/weather-news1.jpg" alt="News Image">
+        <div class="news-info">
+          <h3 style="color:red;">Cold Wave Likely To Hit North, Northwest India Over Next 5 Days: Weather Office</h3>
+          <p>Dense to very dense fog is predicted in the morning hours in isolated pockets over Punjab and Haryana on Friday and Saturday and over northwest Rajasthan, Assam, Meghalaya, Nagaland, Manipur, Mizoram and Tripura on Friday.</p>
+          <a href="#">Read more</a>
+        </div>
+      </div>
+
+      <!-- Add more news items here -->
+    </div>
+{% endblock content%}

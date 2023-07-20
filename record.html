@@ -1,0 +1,26 @@
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+{% extends "index.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4" ><h5>Recorded 5 Days Datasets</h5></legend>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td style="width:400px">Search Id : {{ form.select_src_id }} </td>
+                        <td style="width:400px">{{ form.rec_submit(class="btn btn-outline-info") }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+    </form>
+</div>
+<div class="graph-section chart" id="chart" >
+    <script>
+        var graphs = {{graph | safe}}
+        Plotly.plot('chart',graphs,{})
+    </script>
+</div>
+{% endblock content %}
+

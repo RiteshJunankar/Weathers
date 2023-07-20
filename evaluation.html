@@ -1,0 +1,146 @@
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename ='eval.css')}}">
+{% extends "index.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4" ><h5>Evaluation - Current Vs Recorded</h5></legend>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td style="width:200px"> City : {{ form.select_city }} </td>
+                        <!--<td style="width:200px">{{ form.city_submit(class="btn btn-outline-info") }}</td>-->
+                        <td style="width:400px"> Current Date  : {{ form.current_day }} </td>
+                        <td style="width:400px"> Recorded Date : {{ form.recorded_day }} </td>
+                        <td style="text-align:left">{{ form.eval_submit(class="btn btn-outline-info") }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+    </form>
+</div>
+
+<!-- Use for compare Temprature-->
+
+<div class="content-section">
+	Selected City : {{ city_name }}
+</div>
+<div class="content-section">
+<table border="1" style="border-color: #96D4D4">
+	<tbody>
+		<tr align="center" >
+			<td style="width:200px"><strong>Measures</strong></td>
+			<td style="width:300px"><strong>Today : {{ form.current_day.split(' ')[0] }}</strong></td>
+			<td style="width:300px"><strong>Record : {{form.record_day.split(' ')[0] }}</strong></td>
+			<td style="width:200px"><strong>Difference</strong></td>
+			<td style="width:200px"><strong>Unit</strong></td>
+		</tr>
+		<tr align="center" >
+			<td>Temprature</td>
+			<td style="color:#49da49">{{ curr_data['temp'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['temp'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['temp'] }}</td>
+			<td>°C</td>
+		</tr>
+
+		<tr align="center">
+			<td>Min Temp</td>
+			<td style="color:#49da49">{{ curr_data['temp_min'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['temp_min'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['temp_min'] }}</td>
+			<td>°C</td>
+		</tr>
+		<tr align="center">
+			<td>Max Temp</td>
+			<td style="color:#49da49">{{ curr_data['temp_max'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['temp_max'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['temp_max'] }}</td>
+			<td>°C</td>
+		</tr>
+		<tr align="center">
+			<td>Feels Like</td>
+			<td style="color:#49da49">{{ curr_data['feels_like'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['feels_like'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['feels_like'] }}</td>
+			<td>°C</td>
+		</tr>
+		<tr align="center">
+			<td>Humidity</td>
+			<td style="color:#49da49">{{ curr_data['humidity'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['humidity'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['humidity'] }}</td>
+			<td>%</td>
+		</tr>
+		<tr align="center">
+			<td>Visibility</td>
+			<td style="color:#49da49">{{ curr_data['visibility'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['visibility'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['visibility'] }}</td>
+			<td>km</td>
+		</tr>
+		<tr align="center">
+			<td>Wind Speed</td>
+			<td style="color:#49da49">{{ curr_data['wind_speed'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['wind_speed'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['wind_speed'] }}</td>
+			<td>kph</td>
+		</tr>
+		<tr align="center">
+			<td>Pressure</td>
+			<td style="color:#49da49">{{ curr_data['pressure'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['pressure'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['pressure'] }}</td>
+			<td>mb</td>
+		</tr>
+		<tr align="center">
+			<td>Wind Dir</td>
+			<td style="color:#49da49">{{ curr_data['wind_dir'] }}</td>
+			<td style="color:#1164e7;">{{ rec_data['wind_dir'] }}</td>
+			<td style="color:#ef1e19">{{ diff_data['wind_dir'] }}</td>
+			<td>m/s</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="content-section">
+<table border="1" style="border-color: #96D4D4">
+	<tbody>
+		<tr align="center" >
+			<td style="width:200px"><strong>Measures</strong></td>
+			<td style="width:500px"><strong>Today : {{ form.current_day.split(' ')[0] }}</strong></td>
+			<td style="width:500px"><strong>Record : {{form.record_day.split(' ')[0] }}</strong></td>
+		</tr>
+
+		<tr align="center" >
+			<td>Sun Rise</td>
+			<td>{{curr_data['sun_rise']}}</td>
+			<td>{{rec_data['sun_rise']}}</td>
+		</tr>
+			<tr align="center" >
+			<td>Sun Set</td>
+			<td>{{curr_data['sun_set']}}</td>
+			<td>{{rec_data['sun_set']}}</td>
+		</tr>
+		<tr>
+			<tr align="center" >
+			<td>Condition</td>
+			<td>{{curr_data['conditions']}}</td>
+			<td>{{rec_data['conditions']}}</td>
+		</tr>
+		<tr>
+			<tr align="center" >
+			<td>Description</td>
+			<td>{{curr_data['description']}}</td>
+			<td>{{rec_data['description']}}</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="graph-section chart" id="chart" >
+    <script>
+        var graphs = {{graph | safe}}
+        Plotly.plot('chart',graphs,{})
+    </script>
+</div>
+{% endblock content %}

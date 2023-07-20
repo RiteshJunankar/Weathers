@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="content-section">
+    <div>
+        <legend class="border-bottom mb-4" ><h5>Searched Cities </h5></legend>
+        <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th >User Id</th>
+            <th >City</th>
+            <th>Searched Datetime </th>
+        </tr>
+        </thead>
+        {% for row in hist %}
+        <tr>
+            <td> {{ row[0] }}</td>
+            <td> {{ row[1] }}</td>
+            <td> {{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+{% endblock content %}
+
